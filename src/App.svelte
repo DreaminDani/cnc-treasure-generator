@@ -22,7 +22,7 @@
         numGold += rolld(t.numGold.dieNum) * t.numGold.multiplier;
       }
       generatedTreasure +=
-        generatedTreasure.length > 0 ? `, ${numGold}gp` : `${numGold}gp`;
+        generatedTreasure.length > 0 ? `; ${numGold}gp` : `${numGold}gp`;
     }
 
     const hasGems = true; // Math.random() < t.pctToHaveGems;
@@ -38,7 +38,7 @@
 
         generatedTreasure +=
           generatedTreasure.length > 0
-            ? `, ${generatedGem} (${generatedGemValue}gp)`
+            ? `; ${generatedGem} (${generatedGemValue}gp)`
             : `${generatedGem} (${generatedGemValue}gp)`;
       }
     }
@@ -47,7 +47,7 @@
     if (hasExtItems) {
       const numExtItems = rolld(t.numExtItems.dieNum);
       for (let i = 0; i < numExtItems; i++) {
-        let itemType = getExtItem(6); // rolld(extItemIndex)
+        let itemType = getExtItem(18); // rolld(extItemIndex)
 
         let itemText;
         if (typeof itemType.value === "number") {
@@ -57,7 +57,7 @@
         }
 
         generatedTreasure +=
-          generatedTreasure.length > 0 ? `, ${itemText}` : itemText;
+          generatedTreasure.length > 0 ? `; ${itemText}` : itemText;
       }
     }
 

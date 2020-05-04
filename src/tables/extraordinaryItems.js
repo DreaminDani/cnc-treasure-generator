@@ -16,9 +16,23 @@ export const getExtItem = roll => {
     if (roll >= extType.min && roll <= extType.max) {
       const item = extType.options[rolld(20) - 1];
       if (typeof item.value === 'function') {
+        // item can require a lookup in another table
         const material = item.value();
-        return {name: `${material.name} ${item.name}`, value: material.value}
+        return {name: `${material.name} ${item.name}`, value: material.value};
+      } else if (typeof item.value === 'object') {
+        // or a roll
+        let value = 0;
+        for (let i = 0; i < item.value.numDice; i++) {
+          value += rolld(item.value.dieNum);
+        }
+
+        if (item.value.multiplier) {
+          value = value * item.value.multiplier;
+        }
+
+        return { name: item.name, value: value }
       } else {
+        // or have its value assigned
         return item;
       }
     }
@@ -196,6 +210,270 @@ export const extItemsTable = [
         name: "Waist Chain",
         value: getMaterialValue
       }
+    ]
+  },
+  {
+    percentile: "9-12%",
+    name: "Worn & Ceremonial Items",
+    min: 9,
+    max: 12,
+    options: [
+      {
+        name: "Coronet",
+        value: getMaterialValue
+      },
+      {
+        name: "Crown",
+        value: getMaterialValue
+      },
+      {
+        name: "Orb",
+        value: getMaterialValue
+      },
+      {
+        name: "Scepter",
+        value: getMaterialValue
+      },
+      {
+        name: "Signet",
+        value: getMaterialValue
+      },
+      {
+        name: "Holy symbol",
+        value: getMaterialValue
+      },
+      {
+        name: "Holy water",
+        value: getMaterialValue
+      },
+      {
+        name: "Idol",
+        value: getMaterialValue
+      },
+      {
+        name: "Relic",
+        value: getMaterialValue
+      },
+      {
+        name: "Rune stones",
+        value: getMaterialValue
+      },
+      {
+        name: "Fur coat",
+        value: { numDice: 2, dieNum: 10 }
+      },
+      {
+        name: "Hair shirt",
+        value: { numDice: 1, dieNum: 10 }
+      },
+      {
+        name: "Leather jerkin",
+        value: { numDice: 2, dieNum: 10 }
+      },
+      {
+        name: "Oilskin cloth",
+        value: { numDice: 2, dieNum: 10 }
+      },
+      {
+        name: "Silk garment",
+        value: { numDice: 5, dieNum: 10 }
+      },
+      {
+        name: "Gown",
+        value: { numDice: 1, dieNum: 10 }
+      },
+      {
+        name: "Hood",
+        value: { numDice: 1, dieNum: 4 }
+      },
+      {
+        name: "Mantle",
+        value: { numDice: 1, dieNum: 4 }
+      },
+      {
+        name: "Surcoat",
+        value: { numDice: 3, dieNum: 10 }
+      },
+      {
+        name: "Tabard",
+        value: { numDice: 2, dieNum: 10 }
+      }
+    ]
+  },
+  {
+    percentile: "13-16%",
+    name: "Hand Crafted items",
+    min: 13,
+    max: 16,
+    options: [
+      {
+        name: "Wooden bird cage",
+        value: 20
+      },
+      {
+        name: "Ivory pipe",
+        value: 50
+      },
+      {
+        name: "Paper, ink & quill",
+        value: 15
+      },
+      {
+        name: "Silver snuff box",
+        value: 100
+      },
+      {
+        name: "Mechanical toy",
+        value: { numDice: 2, dieNum: 10 }
+      },
+      {
+        name: "China place settings x1-12 - each",
+        value: { numDice: 2, dieNum: 6 }
+      },
+      {
+        name: "Crystal vase",
+        value: { numDice: 10, dieNum: 10 }
+      },
+      {
+        name: "Pewter goblet",
+        value: 2
+      },
+      {
+        name: "Trencher, silver plated",
+        value: 4
+      },
+      {
+        name: "Wooden gourd",
+        value: 1
+      },
+      {
+        name: "Golden harp",
+        value: getMaterialValue
+      },
+      {
+        name: "Hunter's horn",
+        value: getMaterialValue
+      },
+      {
+        name: "Lute of Vaughn",
+        value: 120
+      },
+      {
+        name: "Elven mandolin",
+        value: 100
+      },
+      {
+        name: "Dragonclaw panpipes",
+        value: 500
+      },
+      {
+        name: "Animal pelt",
+        value: "10 - 1000gp, depending on locale & rarity"
+      },
+      {
+        name: "Decorative egg",
+        value: 100
+      },
+      {
+        name: "Statue",
+        value: getMaterialValue
+      },
+      {
+        name: "Carved wood",
+        value: getMaterialValue
+      },
+      {
+        name: "Miniature figurine",
+        value: getMaterialValue
+      },
+    ]
+  },
+  {
+    percentile: "17-20%",
+    name: "Antiquities",
+    min: 17,
+    max: 20,
+    options: [
+      {
+        name: "Book(s)",
+        value: { numDice: 10, dieNum: 10 }
+      },
+      {
+        name: "Chart(s)",
+        value: { numDice: 5, dieNum: 10 }
+      },
+      {
+        name: "Map",
+        value: { numDice: 5, dieNum: 10 }
+      },
+      {
+        name: "Scroll",
+        value: { numDice: 10, dieNum: 10 }
+      },
+      {
+        name: "Stone Tablet",
+        value: { numDice: 10, dieNum: 10, multiplier: 10 }
+      },
+      {
+        name: "Banner",
+        value: 250
+      },
+      {
+        name: "Painting",
+        value: { numDice: 10, dieNum: 10, multiplier: 10 }
+      },
+      {
+        name: "Rug",
+        value: { numDice: 10, dieNum: 10 }
+      },
+      {
+        name: "Tapestry",
+        value: { numDice: 10, dieNum: 10, multiplier: 100 }
+      },
+      {
+        name: "Trophy",
+        value: { numDice: 10, dieNum: 10 }
+      },
+      {
+        name: "Brazier",
+        value: getMaterialValue
+      },
+      {
+        name: "Candelabra",
+        value: getMaterialValue
+      },
+      {
+        name: "Coffer",
+        value: getMaterialValue
+      },
+      {
+        name: "Mirror",
+        value: getMaterialValue
+      },
+      {
+        name: "Urn",
+        value: getMaterialValue
+      },
+      {
+        name: "Death Mask",
+        value: getMaterialValue
+      },
+      {
+        name: "Hour Glass",
+        value: getMaterialValue
+      },
+      {
+        name: "Music Box",
+        value: getMaterialValue
+      },
+      {
+        name: "Wine",
+        value: { numDice: 2, dieNum: 10, multiplier: 10 }
+      },
+      {
+        name: "Troll Knuckles",
+        value: getMaterialValue
+      },
     ]
   }
 ]
