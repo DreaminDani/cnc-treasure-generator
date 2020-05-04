@@ -47,7 +47,7 @@
     if (hasExtItems) {
       const numExtItems = rolld(t.numExtItems.dieNum);
       for (let i = 0; i < numExtItems; i++) {
-        let itemType = getExtItem(18); // rolld(extItemIndex)
+        let itemType = getExtItem(rolld(extItemIndex));
 
         let itemText;
         if (typeof itemType.value === "number") {
@@ -63,6 +63,7 @@
 
     const hasMagicItems = Math.random() < t.pctToHaveMagicItems;
     if (hasMagicItems) {
+      // todo roll from a new magic item from the magicItemIndex
       generatedTreasure +=
         generatedTreasure.length > 0 ? ", magic item" : "ext item";
     }
