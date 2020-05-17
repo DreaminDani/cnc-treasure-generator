@@ -1,10 +1,10 @@
 import { rolld } from './index.js'
 
-export const extItemsIndex = 100;
+export const magicItemsIndex = 15;
 
-const getMagicItem = (magicTypeTable) => {
+const getMinMaxItem = (magicTypeTable) => {
   const roll = rolld(100);
-  for (const item of magicTypeTable.options) {
+  for (const item of magicTypeTable) {
     if (roll >= item.min && roll <= item.max) {
       return item;
     }
@@ -14,15 +14,9 @@ const getMagicItem = (magicTypeTable) => {
 export const getMagicItem = roll => {
   for (const magicType of magicItemsTable) {
     if (roll >= magicType.min && roll <= magicType.max) {
-      const item = getMagicItem(magicType)
-      if (typeof item.value === 'function') {
-        // item can require a lookup in another table
-        const material = item.value();
-        return {name: `${material.name} ${item.name}`, value: material.value}; 
-      } else {
-        // or have its value assigned
-        return item;
-      }
+      const item = getMinMaxItem(magicType.options);
+      const itemType = {...item, type: magicType.name}
+      return itemType;
     }
   }
 };
@@ -30,10 +24,10 @@ export const getMagicItem = roll => {
 export const magicItemsTable = [
   {
     percentile: "1-15%",
-    name: "Potions",
+    name: "Potion",
     min: 1,
     max: 15,
-    options: [ // 5% chance of getting any item
+    options: [
       {
         name: "Aid",
         value: 400,

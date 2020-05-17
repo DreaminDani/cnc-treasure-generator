@@ -2,6 +2,7 @@
   import { rolld, treasureTable } from "./tables/index.js";
   import { gemTableIndex, getGem } from "./tables/gems.js";
   import { extItemsIndex, getExtItem } from "./tables/extraordinaryItems.js";
+  import { magicItemsIndex, getMagicItem } from "./tables/magicItems.js";
 
   // export let name;
   let selected;
@@ -45,9 +46,10 @@
 
     const hasExtItems = true; // Math.random() < t.pctToHaveExtItem;
     if (hasExtItems) {
-      const numExtItems = rolld(t.numExtItems.dieNum);
+      const numExtItems =
+        rolld(t.numExtItems.dieNum) + t.numExtItems.adjustment;
       for (let i = 0; i < numExtItems; i++) {
-        let itemType = getExtItem(rolld(extItemIndex));
+        let itemType = getExtItem(rolld(extItemsIndex));
 
         let itemText;
         if (typeof itemType.value === "number") {
@@ -61,11 +63,29 @@
       }
     }
 
-    const hasMagicItems = Math.random() < t.pctToHaveMagicItems;
+    const hasMagicItems = true; // Math.random() < t.pctToHaveMagicItems;
     if (hasMagicItems) {
       // todo roll from a new magic item from the magicItemIndex
-      generatedTreasure +=
-        generatedTreasure.length > 0 ? ", magic item" : "ext item";
+      let numExtItems;
+      if (typeof t.numMagicItems === "object") {
+        numExtItems = rolld(t.numMagicItems.dieNum);
+      } else {
+        numExtItems = rolld(t.numMagicItems);
+      }
+
+      for (let i = 0; i < numExtItems; i++) {
+        let itemType = getMagicItem(rolld(magicItemsIndex));
+
+        console.log(itemType);
+        const itemXP =
+          itemType.exp < t.maxXPValueForMagicItem
+            ? itemType.exp
+            : t.maxXPValueForMagicItem;
+        const itemText = `${itemType.name} (${itemType.type}, ${itemType.value}gp, ${itemXP}xp)`;
+
+        generatedTreasure +=
+          generatedTreasure.length > 0 ? `; ${itemText}` : itemText;
+      }
     }
 
     // start building our generated treasure, looking up for each thing

@@ -42,7 +42,7 @@ export const getExtItem = roll => {
 export const extItemsTable = [
   {
     percentile: "1-4%",
-    name: "Expert Weapons",
+    name: "Expert Weapon",
     min: 1,
     max: 4,
     options: [ // 5% chance of getting any item
@@ -214,7 +214,7 @@ export const extItemsTable = [
   },
   {
     percentile: "9-12%",
-    name: "Worn & Ceremonial Items",
+    name: "Worn & Ceremonial Item",
     min: 9,
     max: 12,
     options: [
@@ -302,7 +302,7 @@ export const extItemsTable = [
   },
   {
     percentile: "13-16%",
-    name: "Hand Crafted items",
+    name: "Hand Crafted item",
     min: 13,
     max: 16,
     options: [
@@ -390,7 +390,7 @@ export const extItemsTable = [
   },
   {
     percentile: "17-20%",
-    name: "Antiquities",
+    name: "Antiquity",
     min: 17,
     max: 20,
     options: [
