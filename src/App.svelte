@@ -74,14 +74,20 @@
       }
 
       for (let i = 0; i < numExtItems; i++) {
-        let itemType = getMagicItem(rolld(magicItemsIndex));
+        let itemType = getMagicItem(62);
 
         console.log(itemType);
         const itemXP =
           itemType.exp < t.maxXPValueForMagicItem
             ? itemType.exp
             : t.maxXPValueForMagicItem;
-        const itemText = `${itemType.name} (${itemType.type}, ${itemType.value}gp, ${itemXP}xp)`;
+        const itemXPtext = typeof itemXP === "string" ? itemXP : `${itemXP}xp`;
+
+        let itemText = `${itemType.name} (`;
+        if (itemType.type) {
+          itemText += `${itemType.type}, `;
+        }
+        itemText += `${itemType.value}gp, ${itemXPtext})`;
 
         generatedTreasure +=
           generatedTreasure.length > 0 ? `; ${itemText}` : itemText;
