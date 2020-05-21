@@ -1342,21 +1342,110 @@ export const magicItemsTable = [
         min: 41,
         max: 60,
         options: [
-
+          // 01-04 Eyes of the Eagle 4,250 425
+          // 05-08 Figurines of Wondrous Power See text See text
+          // 09-12 Feather Token 4,500 450
+          // 13-16 Gauntlets of Ogre Power 9,500 950
+          // 17-20 Gem of Brightness 17,750 2,000
+          // 21-24 Gem of Seeing 15,250 1,500
+          // 25-28 Gloves of Dexterity 1,000–25,000* 500 per
+          // bonus
+          // 29-32 Gloves of Swimming and
+          // Climbing 9,000 900
+          // 33-36 Handy Haversack 12,250 1,225
+          // 37-40 Harp of Charming 7,750 2,000
+          // 41-44 Hat of Disguise 5,500 550
+          // 45-48 Helm of Brilliance 34,750 3,000
+          // 49-52 Helm of Comprehend
+          // Language & Read Magic 4,250 425
+          // 53-56 Helm of Telepathy 17,250 3,450
+          // 57-60 Helm of Teleportation 20,250 2,250
+          // 61-64 Helm of Underwater Action 4,500 1,125
+          // 65-68 Horn of Blasting 17,500 1,750
+          // 69-72 Horn of Fog 4,250 425
+          // 73-76 Horn of Goodness/Evil 4,250 1,050
+          // 77-80 Horn of the Merfolk 12,500 2,500
+          // 81-84 Horn of Valhalla 32,000 1.250**
+          // 85-88 Horseshoes of Speed 7,750 775
+          // 89-92 Horseshoes of the Zephyr 9,750 975
+          // 93-96 Instant Fortress 22,5000 2,250
+          // 97-00 Ioun Stones See text See text
         ]
       },
       {
         min: 61,
         max: 80,
         options: [
-
+          // 01-04 Iron Bands of Binding 17,500 1,750
+          // 05-08 Iron Flask – –
+          // 09-12 Lyre of Building 13,500 2,000
+          // 13-16 Mantle of Spell Resistance 200,000 20,000
+          // 17-20 Manual of Bodily Health 10,000–60,000 500 per bonus
+          // 21-24 Manual of Gainful Exercise 10,000–60,000 500 per bonus
+          // 25-28 Manual of Quickness of Action 10,000–60,000 500 per bonus
+          // 29-32 Mattock of the Titans 11,500 1,150
+          // 33-36 Maul of the Titans 13,500 1,350
+          // 37-40 Medallion of Thoughts 5,500 1,500
+          // 41-44 Mirror of Life Trapping 39,000 2,300
+          // 45-48 Mirror of Mental Prowess 37,250 3,720
+          // 49-52 Mirror of Opposition 25,600 2,560
+          // 53-56 Necklace of Adaptation 4,500 450
+          // 57-60 Necklace of Fireballs See text See text
+          // 61-64 Orb of Storms 49,500 2,500
+          // 65-68 Pearl of Power 1,000–81,000* **
+          // 69-72 Pearl of the Sirens 13,500 1,350
+          // 73-76 Periapt of Health 9,500 950
+          // 77-80 Periapt of Proof Against
+          // Poison 9,500 950
+          // 81-84 Periapt of Wisdom 1,000–25,000* 500 per bonus
+          // 85-88 Periapt of Wound Closure 17,000 1,000
+          // 89-92 Phylactery of Faithfulness 5,500 1,250
+          // 93-96 Phylactery of Undead
+          // Turning 16,000 1,600
+          // 97-00 Pipes of the Sewers 7,500 750
         ]
       },
       {
         min: 81,
         max: 100,
         options: [
-
+          // 01-04 Portable Hole 29,250 2,950
+          // 05-08 Restorative Ointment 5,500 550
+          // 09-12 Ring Gates 30,500* 3,050
+          // 13-16 Robe of the Arch-magi 75,000 7,500
+          // 17-20 Robe of Blending 23,000 2,300
+          // 21-24 Robe of Eyes 17,500 1,750
+          // 25-28 Robe of Scintillating Colors 13,500 1,350
+          // 29-32 Robe of Useful Items 14,000 1,400
+          // 33-36 Rope of Climbing 5,750 575
+          // 37-40 Rope of Entanglement 7,750 775
+          // 41-44 Scabbard of Sharpness 17,500 1,700
+          // 45-48 Scarab of Protection 34,000 1,200
+          // 49-52 Shrouds of Disintegration 1,650 165
+          // 53-56 Slippers of Spider Climbing 9,000 900
+          // 57-60 Stone of Alarm 1,400 140
+          // 61-64 Stone of Controlling Earth
+          // Elementals 10,000–60,000 8,500
+          // 65-68 Stone of Good Luck 4,250 425
+          // 69-72 Stone Horse 8,500 850
+          // 73-76 Strand of Prayer Beads See text See text
+          // 77-80 Tome of Clear Thought 1,000–
+          // 25,000**
+          // 500 per
+          // bonus
+          // 81-84 Tome of Leadership and
+          // Influence
+          // 1,000–
+          // 25,000**
+          // 500 per
+          // bonus
+          // 85-88 Tome of Understanding 1,000–
+          // 25,000**
+          // 500 per
+          // bonus
+          // 89-92 Well of Many Worlds 40,450 2,000
+          // 93-96 Wind Fans 5,500 550
+          // 97-00 Wings of Flying 15,750 1,575
         ]
       }
     ]
