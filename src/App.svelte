@@ -7,7 +7,6 @@
   // export let name;
   let selected;
   let generatedTreasure = "";
-  // importing the json (hard code this)
 
   const calculateTreasure = () => {
     // reset generated treasure
@@ -16,7 +15,7 @@
     // look at the treasure table for the selected treasure type
     const t = treasureTable[selected - 1];
 
-    const hasGold = true; // Math.random() < t.pctToHaveGold;
+    const hasGold = Math.random() < t.pctToHaveGold;
     if (hasGold) {
       let numGold = 0;
       for (let i = 0; i < t.numGold.numDice; i++) {
@@ -26,7 +25,7 @@
         generatedTreasure.length > 0 ? `; ${numGold}gp` : `${numGold}gp`;
     }
 
-    const hasGems = true; // Math.random() < t.pctToHaveGems;
+    const hasGems = Math.random() < t.pctToHaveGems;
     if (hasGems) {
       const numGems = rolld(t.numGems.dieNum);
       for (let i = 0; i < numGems; i++) {
@@ -35,7 +34,7 @@
           gemType.options[
             Math.floor(Math.random() * Math.floor(gemType.options.length))
           ];
-        const generatedGemValue = gemType.value - t.gemValueAdjustment;
+        const generatedGemValue = gemType.value + t.gemValueAdjustment;
 
         generatedTreasure +=
           generatedTreasure.length > 0
@@ -44,7 +43,7 @@
       }
     }
 
-    const hasExtItems = true; // Math.random() < t.pctToHaveExtItem;
+    const hasExtItems = Math.random() < t.pctToHaveExtItem;
     if (hasExtItems) {
       const numExtItems =
         rolld(t.numExtItems.dieNum) + t.numExtItems.adjustment;
@@ -63,9 +62,8 @@
       }
     }
 
-    const hasMagicItems = true; // Math.random() < t.pctToHaveMagicItems;
+    const hasMagicItems = Math.random() < t.pctToHaveMagicItems;
     if (hasMagicItems) {
-      // todo roll from a new magic item from the magicItemIndex
       let numExtItems;
       if (typeof t.numMagicItems === "object") {
         numExtItems = rolld(t.numMagicItems.dieNum);
@@ -74,7 +72,7 @@
       }
 
       for (let i = 0; i < numExtItems; i++) {
-        let itemType = getMagicItem(62);
+        let itemType = getMagicItem(rolld(magicItemsIndex));
 
         console.log(itemType);
         const itemXP =
@@ -87,20 +85,18 @@
         if (itemType.type) {
           itemText += `${itemType.type}, `;
         }
-        itemText += `${itemType.value}gp, ${itemXPtext})`;
+
+        if (itemType.value && itemType.exp) {
+          itemText += `${itemType.value}gp, ${itemXPtext})`;
+        } else {
+          itemText += ")";
+        }
 
         generatedTreasure +=
           generatedTreasure.length > 0 ? `; ${itemText}` : itemText;
       }
     }
-
-    // start building our generated treasure, looking up for each thing
-    // 12gp, 1 amythyst, 1 tropical sword, 1 bag of holding
-    // gold, gem, extraordinary item, magic item
-    // gold
   };
-
-  // render generated treasure
 </script>
 
 <style>
