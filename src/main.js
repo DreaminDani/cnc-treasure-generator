@@ -1,4 +1,5 @@
 import App from './App.svelte';
+import "98.css";
 
 const app = new App({
 	target: document.body,
