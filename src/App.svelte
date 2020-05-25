@@ -5,7 +5,7 @@
   import { magicItemsIndex, getMagicItem } from "./tables/magicItems.js";
 
   // export let name;
-  let selected;
+  let selected = 1;
   let generatedTreasure = "";
 
   const calculateTreasure = () => {
@@ -106,67 +106,87 @@
 </script>
 
 <style>
-  main {
-    text-align: left;
-    padding: 1em;
-    max-width: 240px;
+  .window {
+    max-width: 640px;
     margin: 0 auto;
   }
 
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
+  .footnotes-outer {
+    max-width: 640px;
+    margin: 8px auto;
   }
 
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
+  .top-row {
+    display: flex;
+  }
+
+  .treasure-type-select {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .generate-button {
+    margin-left: 32px;
+  }
+
+  @media (max-width: 640px) {
+    .top-row {
+      flex-direction: column;
+    }
+
+    .treasure-type-select {
+      max-width: unset;
+    }
+
+    .generate-button {
+      margin-left: 0;
+      margin-top: 12px;
+      width: 100%;
     }
   }
 </style>
 
-<main>
-  <label for="treasure-type-select">Choose a treasure type*:</label>
-  <select
-    bind:value={selected}
-    on:change={calculateTreasure}
-    name="Treasure Type"
-    id="treasure-type-select">
-    <option value="">--Please choose an option--</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-    <option value="13">13</option>
-    <option value="14">14</option>
-    <option value="15">15</option>
-    <option value="16">16</option>
-    <option value="17">17</option>
-    <option value="18">18</option>
-  </select>
-  <button on:click={calculateTreasure}>Regen</button>
+<div class="window">
+  <header class="title-bar">
+    <div class="title-bar-text">Castles & Crusades Treasure Generator</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close" />
+    </div>
+  </header>
+  <main class="window-body">
+    <div class="top-row">
+      <div class="field-row treasure-type-select">
+        <label for="range21">Choose a treasure type*</label>
+        <label for="range22">1</label>
+        <input
+          bind:value={selected}
+          id="range22"
+          type="range"
+          min="1"
+          max="18" />
+        <label for="range23">18</label>
+      </div>
+      <button class="generate-button" on:click={calculateTreasure}>
+        Generate Treasure Level {selected}
+      </button>
+    </div>
 
-  <p>* See "Monsters and Treasure" or assume equal to hit die.</p>
-  {#if selected}
-    {#if generatedTreasure.length > 0}
-      <p>{generatedTreasure}</p>
-      <small>
-        † Denotes item type is the Castle Keeper’s Choice. Value varies.
-      </small>
-    {/if}
+    {#if selected}
+      {#if generatedTreasure.length > 0}
+        <p>{generatedTreasure}</p>
+        <small>
+          † Denotes item type is the Castle Keeper’s Choice. Value varies.
+        </small>
+      {/if}
 
-    {#if generatedTreasure.length <= 0}
-      <p>Sorry bud</p>
+      {#if generatedTreasure.length <= 0}
+        <p>Sorry bud</p>
+      {/if}
     {/if}
-  {/if}
-</main>
+  </main>
+
+</div>
+<p class="footnotes-outer">
+  * To determine a treasure level, see the entry for a creature in "Monsters and
+  Treasure" or assume equal to hit die.
+</p>
