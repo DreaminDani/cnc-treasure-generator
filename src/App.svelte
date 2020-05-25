@@ -148,6 +148,7 @@
     <option value="17">17</option>
     <option value="18">18</option>
   </select>
+  <button on:click={calculateTreasure}>Regen</button>
 
   <p>* See "Monsters and Treasure" or assume equal to hit die.</p>
   {#if selected}
