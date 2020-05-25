@@ -38,12 +38,12 @@
           ];
         const generatedGemValue = gemType.value + t.gemValueAdjustment;
 
-        generatedTreasure.gems = [];
-        generatedTreasure.gems.push(
+        generatedTreasure.gems = [
+          ...generatedTreasure.gems,
           generatedTreasure.length > 0
             ? `; ${generatedGem} (${generatedGemValue}gp)`
             : `${generatedGem} (${generatedGemValue}gp)`
-        );
+        ];
       }
     }
 
@@ -61,10 +61,10 @@
           itemText = `${itemType.name} (${itemType.value})`;
         }
 
-        generatedTreasure.extItems = [];
-        generatedTreasure.extItems.push(
+        generatedTreasure.extItems = [
+          ...generatedTreasure.extItems,
           generatedTreasure.length > 0 ? `; ${itemText}` : itemText
-        );
+        ];
       }
     }
 
@@ -102,10 +102,10 @@
           itemText += ")";
         }
 
-        generatedTreasure.magicItems = [];
-        generatedTreasure.magicItems.push(
+        generatedTreasure.magicItems = [
+          ...generatedTreasure.magicItems,
           generatedTreasure.length > 0 ? `; ${itemText}` : itemText
-        );
+        ];
       }
     }
   };
@@ -117,28 +117,81 @@
     margin: 0 auto;
   }
 
-  .footnotes-outer {
-    max-width: 512px;
-    margin: 8px auto;
-  }
-
   .top-row {
     display: flex;
   }
-
   .treasure-type-select {
     width: 100%;
     max-width: 300px;
   }
-
   .treasure-type-select label {
     min-width: max-content;
   }
-
   .generate-button {
     margin-left: 32px;
   }
 
+  .generated-treasure ul {
+    margin-top: 0;
+    padding-left: 0.7rem;
+  }
+  .generated-treasure h2 {
+    font-size: 1em;
+    margin-bottom: 0;
+  }
+  .t-gold:before {
+    content: "";
+    background: url("/img/gold.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    margin-right: 3px;
+  }
+  .t-gems:before {
+    content: "";
+    background: url("/img/gem.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    margin-right: 3px;
+  }
+  .t-extItems:before {
+    content: "";
+    background: url("/img/ext_item.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-left: -1px;
+  }
+  .t-magicItems:before {
+    content: "";
+    background: url("/img/magic_item.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: 1px;
+  }
+
+  .footnotes-outer {
+    max-width: 512px;
+    margin: 8px auto;
+  }
+  .footnotes-inner {
+    margin-top: 12px;
+  }
   .footnotes-inner small {
     display: block;
   }
@@ -189,26 +242,57 @@
     </div>
 
     {#if generatedOnce}
-      {#if generatedTreasure.gold.length === 0 && generatedTreasure.gems.length === 0 && generatedTreasure.extItems.length === 0 && generatedTreasure.magicItems.length === 0}
-        <p>The dice have spoken. No treasure was generated.</p>
-      {:else}
-        <p>{JSON.stringify(generatedTreasure)}</p>
-        <div class="footnotes-inner">
-          <small>
-            † Denotes than an item's type is the Castle Keeper’s choice. Value
-            varies.
-          </small>
-          <small>
-            The value or experience for items with ranges can be found in
-            "Monsters & Treasures"
-          </small>
-        </div>
-      {/if}
+      <div class="generated-treasure">
+        {#if generatedTreasure.gold.length === 0 && generatedTreasure.gems.length === 0 && generatedTreasure.extItems.length === 0 && generatedTreasure.magicItems.length === 0}
+          <p>The dice have spoken. No treasure was generated.</p>
+        {:else}
+          {#if generatedTreasure.gold.length > 0}
+            <h2 class="t-gold">Gold</h2>
+            {generatedTreasure.gold}
+          {/if}
+          {#if generatedTreasure.gems.length > 0}
+            <h2 class="t-gems">Gems</h2>
+            <ul>
+              {#each generatedTreasure.gems as gem}
+                <li>{gem}</li>
+              {/each}
+            </ul>
+          {/if}
+          {#if generatedTreasure.extItems.length > 0}
+            <h2 class="t-extItems">Extraordinary Items</h2>
+            <ul>
+              {#each generatedTreasure.extItems as extItem}
+                <li>{extItem}</li>
+              {/each}
+            </ul>
+          {/if}
+          {#if generatedTreasure.magicItems.length > 0}
+            <h2 class="t-magicItems">Magic Items</h2>
+            <ul>
+              {#each generatedTreasure.magicItems as magicItem}
+                <li>{magicItem}</li>
+              {/each}
+            </ul>
+          {/if}
+          <div class="footnotes-inner">
+            <small>
+              † Denotes that an item's
+              <em>type</em>
+              is the Castle Keeper’s choice. Value varies.
+            </small>
+            <small>
+              The value or experience for items
+              <em>with ranges</em>
+              can be found in "Monsters & Treasures"
+            </small>
+          </div>
+        {/if}
+      </div>
     {/if}
   </main>
 
 </div>
 <p class="footnotes-outer">
   * To determine a treasure level, see the entry for a creature in "Monsters and
-  Treasure" or assume equal to hit die.
+  Treasure"
 </p>
