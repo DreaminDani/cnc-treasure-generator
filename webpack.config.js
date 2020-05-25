@@ -57,5 +57,5 @@ module.exports = {
 			filename: '[name].css'
 		})
 	],
-	devtool: prod ? false: 'source-map'
+	devtool: prod ? false: 'inline-source-map'
 };

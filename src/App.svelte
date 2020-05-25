@@ -6,11 +6,13 @@
 
   // export let name;
   let selected = 1;
-  let generatedTreasure = "";
+  let generatedTreasure = {};
+  let generatedOnce = false;
 
   const calculateTreasure = () => {
+    generatedOnce = true;
     // reset generated treasure
-    generatedTreasure = "";
+    generatedTreasure = { gold: [], gems: [], extItems: [], magicItems: [] };
 
     // look at the treasure table for the selected treasure type
     const t = treasureTable[selected - 1];
@@ -21,7 +23,7 @@
       for (let i = 0; i < t.numGold.numDice; i++) {
         numGold += rolld(t.numGold.dieNum) * t.numGold.multiplier;
       }
-      generatedTreasure +=
+      generatedTreasure.gold =
         generatedTreasure.length > 0 ? `; ${numGold}gp` : `${numGold}gp`;
     }
 
@@ -36,10 +38,12 @@
           ];
         const generatedGemValue = gemType.value + t.gemValueAdjustment;
 
-        generatedTreasure +=
+        generatedTreasure.gems = [];
+        generatedTreasure.gems.push(
           generatedTreasure.length > 0
             ? `; ${generatedGem} (${generatedGemValue}gp)`
-            : `${generatedGem} (${generatedGemValue}gp)`;
+            : `${generatedGem} (${generatedGemValue}gp)`
+        );
       }
     }
 
@@ -57,8 +61,10 @@
           itemText = `${itemType.name} (${itemType.value})`;
         }
 
-        generatedTreasure +=
-          generatedTreasure.length > 0 ? `; ${itemText}` : itemText;
+        generatedTreasure.extItems = [];
+        generatedTreasure.extItems.push(
+          generatedTreasure.length > 0 ? `; ${itemText}` : itemText
+        );
       }
     }
 
@@ -74,9 +80,7 @@
       for (let i = 0; i < numExtItems; i++) {
         let itemType = getMagicItem(rolld(magicItemsIndex));
 
-        console.log(itemType);
         let itemXP;
-
         if (t.maxXPValueForMagicItem) {
           itemXP =
             itemType.exp < t.maxXPValueForMagicItem
@@ -98,8 +102,10 @@
           itemText += ")";
         }
 
-        generatedTreasure +=
-          generatedTreasure.length > 0 ? `; ${itemText}` : itemText;
+        generatedTreasure.magicItems = [];
+        generatedTreasure.magicItems.push(
+          generatedTreasure.length > 0 ? `; ${itemText}` : itemText
+        );
       }
     }
   };
@@ -107,12 +113,12 @@
 
 <style>
   .window {
-    max-width: 640px;
+    max-width: 512px;
     margin: 0 auto;
   }
 
   .footnotes-outer {
-    max-width: 640px;
+    max-width: 512px;
     margin: 8px auto;
   }
 
@@ -125,8 +131,16 @@
     max-width: 300px;
   }
 
+  .treasure-type-select label {
+    min-width: max-content;
+  }
+
   .generate-button {
     margin-left: 32px;
+  }
+
+  .footnotes-inner small {
+    display: block;
   }
 
   @media (max-width: 640px) {
@@ -150,13 +164,16 @@
   <header class="title-bar">
     <div class="title-bar-text">Castles & Crusades Treasure Generator</div>
     <div class="title-bar-controls">
+      <button
+        aria-label="Help"
+        onclick="window.open('https://github.com/d3sandoval/cnc-treasure-generator','_blank');" />
       <button aria-label="Close" />
     </div>
   </header>
   <main class="window-body">
     <div class="top-row">
       <div class="field-row treasure-type-select">
-        <label for="range21">Choose a treasure type*</label>
+        <label for="range21">Treasure Level*:</label>
         <label for="range22">1</label>
         <input
           bind:value={selected}
@@ -171,16 +188,21 @@
       </button>
     </div>
 
-    {#if selected}
-      {#if generatedTreasure.length > 0}
-        <p>{generatedTreasure}</p>
-        <small>
-          † Denotes item type is the Castle Keeper’s Choice. Value varies.
-        </small>
-      {/if}
-
-      {#if generatedTreasure.length <= 0}
-        <p>Sorry bud</p>
+    {#if generatedOnce}
+      {#if generatedTreasure.gold.length === 0 && generatedTreasure.gems.length === 0 && generatedTreasure.extItems.length === 0 && generatedTreasure.magicItems.length === 0}
+        <p>The dice have spoken. No treasure was generated.</p>
+      {:else}
+        <p>{JSON.stringify(generatedTreasure)}</p>
+        <div class="footnotes-inner">
+          <small>
+            † Denotes than an item's type is the Castle Keeper’s choice. Value
+            varies.
+          </small>
+          <small>
+            The value or experience for items with ranges can be found in
+            "Monsters & Treasures"
+          </small>
+        </div>
       {/if}
     {/if}
   </main>
