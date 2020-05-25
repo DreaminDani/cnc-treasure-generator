@@ -75,10 +75,16 @@
         let itemType = getMagicItem(rolld(magicItemsIndex));
 
         console.log(itemType);
-        const itemXP =
-          itemType.exp < t.maxXPValueForMagicItem
-            ? itemType.exp
-            : t.maxXPValueForMagicItem;
+        let itemXP;
+
+        if (t.maxXPValueForMagicItem) {
+          itemXP =
+            itemType.exp < t.maxXPValueForMagicItem
+              ? itemType.exp
+              : t.maxXPValueForMagicItem;
+        } else {
+          itemXP = itemType.exp;
+        }
         const itemXPtext = typeof itemXP === "string" ? itemXP : `${itemXP}xp`;
 
         let itemText = `${itemType.name} (`;
