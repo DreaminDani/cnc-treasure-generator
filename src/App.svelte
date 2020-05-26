@@ -1,10 +1,12 @@
 <script>
-  import { rolld, treasureTable } from "./tables/index.js";
+  import { Chance } from "chance";
+  import { treasureTable } from "./tables/index.js";
   import { gemTableIndex, getGem } from "./tables/gems.js";
   import { extItemsIndex, getExtItem } from "./tables/extraordinaryItems.js";
   import { magicItemsIndex, getMagicItem } from "./tables/magicItems.js";
 
-  // export let name;
+  const chance = new Chance();
+
   let selected = 1;
   let generatedTreasure = {};
   let generatedOnce = false;
@@ -17,42 +19,47 @@
     // look at the treasure table for the selected treasure type
     const t = treasureTable[selected - 1];
 
-    const hasGold = Math.random() < t.pctToHaveGold;
+    const hasGold = chance.bool({ likelihood: t.pctToHaveGold * 100 });
     if (hasGold) {
       let numGold = 0;
       for (let i = 0; i < t.numGold.numDice; i++) {
-        numGold += rolld(t.numGold.dieNum) * t.numGold.multiplier;
+        numGold +=
+          chance.natural({ min: 1, max: t.numGold.dieNum }) *
+          t.numGold.multiplier;
       }
-      generatedTreasure.gold =
-        generatedTreasure.length > 0 ? `; ${numGold}gp` : `${numGold}gp`;
+      generatedTreasure.gold = `${numGold}gp`;
     }
 
-    const hasGems = Math.random() < t.pctToHaveGems;
+    const hasGems = chance.bool({ likelihood: t.pctToHaveGems * 100 });
     if (hasGems) {
-      const numGems = rolld(t.numGems.dieNum);
+      const numGems = chance.natural({ min: 1, max: t.numGems.dieNum });
       for (let i = 0; i < numGems; i++) {
-        let gemType = getGem(rolld(gemTableIndex));
+        let gemType = getGem(chance.natural({ min: 1, max: gemTableIndex }));
         const generatedGem =
           gemType.options[
-            Math.floor(Math.random() * Math.floor(gemType.options.length))
+            chance.integer({ min: 0, max: gemType.options.length - 1 })
           ];
-        const generatedGemValue = gemType.value + t.gemValueAdjustment;
+        let generatedGemValue = gemType.value + t.gemValueAdjustment;
+        if (generatedGemValue < 1) {
+          generatedGemValue = 1;
+        }
 
         generatedTreasure.gems = [
           ...generatedTreasure.gems,
-          generatedTreasure.length > 0
-            ? `; ${generatedGem} (${generatedGemValue}gp)`
-            : `${generatedGem} (${generatedGemValue}gp)`
+          `${generatedGem} (${generatedGemValue}gp)`
         ];
       }
     }
 
-    const hasExtItems = Math.random() < t.pctToHaveExtItem;
+    const hasExtItems = chance.bool({ likelihood: t.pctToHaveExtItem * 100 });
     if (hasExtItems) {
       const numExtItems =
-        rolld(t.numExtItems.dieNum) + t.numExtItems.adjustment;
+        chance.natural({ min: 1, max: t.numExtItems.dieNum }) +
+        t.numExtItems.adjustment;
       for (let i = 0; i < numExtItems; i++) {
-        let itemType = getExtItem(rolld(extItemsIndex));
+        let itemType = getExtItem(
+          chance.natural({ min: 1, max: extItemsIndex })
+        );
 
         let itemText;
         if (typeof itemType.value === "number") {
@@ -61,24 +68,25 @@
           itemText = `${itemType.name} (${itemType.value})`;
         }
 
-        generatedTreasure.extItems = [
-          ...generatedTreasure.extItems,
-          generatedTreasure.length > 0 ? `; ${itemText}` : itemText
-        ];
+        generatedTreasure.extItems = [...generatedTreasure.extItems, itemText];
       }
     }
 
-    const hasMagicItems = Math.random() < t.pctToHaveMagicItems;
+    const hasMagicItems = chance.bool({
+      likelihood: t.pctToHaveMagicItems * 100
+    });
     if (hasMagicItems) {
       let numExtItems;
       if (typeof t.numMagicItems === "object") {
-        numExtItems = rolld(t.numMagicItems.dieNum);
+        numExtItems = chance.natural({ min: 1, max: t.numMagicItems.dieNum });
       } else {
-        numExtItems = rolld(t.numMagicItems);
+        numExtItems = chance.natural({ min: 1, max: t.numMagicItems });
       }
 
       for (let i = 0; i < numExtItems; i++) {
-        let itemType = getMagicItem(rolld(magicItemsIndex));
+        let itemType = getMagicItem(
+          chance.natural({ min: 1, max: magicItemsIndex })
+        );
 
         let itemXP;
         if (t.maxXPValueForMagicItem) {
@@ -104,7 +112,7 @@
 
         generatedTreasure.magicItems = [
           ...generatedTreasure.magicItems,
-          generatedTreasure.length > 0 ? `; ${itemText}` : itemText
+          itemText
         ];
       }
     }

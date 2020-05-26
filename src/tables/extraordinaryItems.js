@@ -1,9 +1,10 @@
-import { rolld } from './index.js'
+import {Chance} from "chance";
+const chance = new Chance();
 
 export const extItemsIndex = 20;
 
 const getMaterialValue = () => {
-  const roll = rolld(100);
+  const roll = chance.natural({ min: 1, max: 100});
   for (const material of materialValueTable) {
     if (roll >= material.min && roll <= material.max) {
       return material;
@@ -14,7 +15,7 @@ const getMaterialValue = () => {
 export const getExtItem = roll => {
   for (const extType of extItemsTable) {
     if (roll >= extType.min && roll <= extType.max) {
-      const item = extType.options[rolld(20) - 1];
+      const item = extType.options[chance.natural({ min: 1, max: 20}) - 1];
       if (typeof item.value === 'function') {
         // item can require a lookup in another table
         const material = item.value();
@@ -23,7 +24,7 @@ export const getExtItem = roll => {
         // or a roll
         let value = 0;
         for (let i = 0; i < item.value.numDice; i++) {
-          value += rolld(item.value.dieNum);
+          value += chance.natural({ min: 1, max: item.value.dieNum});
         }
 
         if (item.value.multiplier) {

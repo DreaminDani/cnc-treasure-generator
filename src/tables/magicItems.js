@@ -1,9 +1,10 @@
-import { rolld } from './index.js'
+import {Chance} from "chance";
+const chance = new Chance();
 
 export const magicItemsIndex = 100;
 
 const getMinMaxItem = (magicTypeTable) => {
-  const roll = rolld(100);
+  const roll = chance.natural({ min: 1, max: 100});
   for (const item of magicTypeTable) {
     if (roll >= item.min && roll <= item.max) {
       return item;
@@ -25,7 +26,7 @@ export const getMagicItem = roll => {
           if (typeof midItem.options[0] === "string") {
             generatedItem =
             midItem.options[
-              Math.floor(Math.random() * Math.floor(midItem.options.length))
+              chance.integer({ min: 0, max: midItem.options.length - 1 })
             ];
           } else {
             generatedItem = getMinMaxItem(midItem.options).name;

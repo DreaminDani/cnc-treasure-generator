@@ -1,8 +1,3 @@
-// e.g. rolld(4) rolls a d4
-export function rolld(dieNumber) {
-  return Math.floor(Math.random() * (dieNumber - 1 + 1) + 1);
-}
-
 export const treasureTable = [
   {
     type: 1,
