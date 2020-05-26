@@ -138,6 +138,7 @@
     min-width: max-content;
   }
   .generate-button {
+    padding: 8px 16px;
     margin-left: 32px;
   }
 
