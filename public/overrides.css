@@ -1,0 +1,11 @@
+* {
+	font-size: 100% !important;
+}
+
+.title-bar, .window, button, input, label, option, select, textarea, ul.tree-view {
+	font-size: 0.9em !important;
+}
+
+small {
+  font-size: 0.75em !important;
+}

@@ -121,16 +121,18 @@
 
 <style>
   .window {
-    max-width: 512px;
+    max-width: 640px;
     margin: 0 auto;
   }
 
   .top-row {
     display: flex;
+    justify-content: space-between;
+    padding-right: 0.5rem;
   }
   .treasure-type-select {
     width: 100%;
-    max-width: 300px;
+    max-width: 360px;
   }
   .treasure-type-select label {
     min-width: max-content;
@@ -194,7 +196,7 @@
   }
 
   .footnotes-outer {
-    max-width: 512px;
+    max-width: 640px;
     margin: 8px auto;
   }
   .footnotes-inner {
