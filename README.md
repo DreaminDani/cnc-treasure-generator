@@ -1,7 +1,7 @@
 # Castles & Crusades Treasure Generator
 A treasure generator for the table top RPG: Castles and Crusades.
 
-Based on the treasure tables in the Fourth Printing of "Castles and Crusades Monsters and Treasure"
+Based on the treasure tables in the Fourth Printing of "Castles and Crusades Monsters and Treasure" (but it should work for the 5th edition too)
 
 ## Development
 
