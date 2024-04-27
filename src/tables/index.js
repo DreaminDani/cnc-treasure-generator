@@ -10,7 +10,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 2, adjustment: 0 },
     pctToHaveMagicItems: 0.05,
     numMagicItems: 1,
-    maxXPValueForMagicItem: 100
+    maxXPValueForMagicItem: 100,
   },
   {
     type: 2,
@@ -23,7 +23,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 2, adjustment: 1 },
     pctToHaveMagicItems: 0.1,
     numMagicItems: 1,
-    maxXPValueForMagicItem: 200
+    maxXPValueForMagicItem: 200,
   },
   {
     type: 3,
@@ -36,7 +36,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 2, adjustment: 2 },
     pctToHaveMagicItems: 0.15,
     numMagicItems: 1,
-    maxXPValueForMagicItem: 300
+    maxXPValueForMagicItem: 300,
   },
   {
     type: 4,
@@ -49,7 +49,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 2, adjustment: 3 },
     pctToHaveMagicItems: 0.2,
     numMagicItems: 1,
-    maxXPValueForMagicItem: 500
+    maxXPValueForMagicItem: 500,
   },
   {
     type: 5,
@@ -62,7 +62,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 4, adjustment: 2 },
     pctToHaveMagicItems: 0.3,
     numMagicItems: { dieNum: 2 },
-    maxXPValueForMagicItem: 800
+    maxXPValueForMagicItem: 800,
   },
   {
     type: 6,
@@ -75,7 +75,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 4, adjustment: 3 },
     pctToHaveMagicItems: 0.4,
     numMagicItems: { dieNum: 2 },
-    maxXPValueForMagicItem: 1300
+    maxXPValueForMagicItem: 1300,
   },
   {
     type: 7,
@@ -88,7 +88,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 4, adjustment: 4 },
     pctToHaveMagicItems: 0.5,
     numMagicItems: { dieNum: 2 },
-    maxXPValueForMagicItem: 2100
+    maxXPValueForMagicItem: 2100,
   },
   {
     type: 8,
@@ -101,7 +101,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 4, adjustment: 5 },
     pctToHaveMagicItems: 0.6,
     numMagicItems: { dieNum: 2 },
-    maxXPValueForMagicItem: 3400
+    maxXPValueForMagicItem: 3400,
   },
   {
     type: 9,
@@ -114,7 +114,7 @@ export const treasureTable = [
     numExtItems: { dieNum: 6, adjustment: 4 },
     pctToHaveMagicItems: 0.7,
     numMagicItems: { dieNum: 3 },
-    maxXPValueForMagicItem: 5500
+    maxXPValueForMagicItem: 5500,
   },
   {
     type: 10,
@@ -126,7 +126,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.91,
     numExtItems: { dieNum: 6, adjustment: 5 },
     pctToHaveMagicItems: 0.8,
-    numMagicItems: { dieNum: 3 }
+    numMagicItems: { dieNum: 3 },
   },
   {
     type: 11,
@@ -138,7 +138,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.92,
     numExtItems: { dieNum: 6, adjustment: 6 },
     pctToHaveMagicItems: 0.9,
-    numMagicItems: { dieNum: 3 }
+    numMagicItems: { dieNum: 3 },
   },
   {
     type: 12,
@@ -150,7 +150,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.93,
     numExtItems: { dieNum: 6, adjustment: 7 },
     pctToHaveMagicItems: 0.92,
-    numMagicItems: { dieNum: 3 }
+    numMagicItems: { dieNum: 3 },
   },
   {
     type: 13,
@@ -162,7 +162,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.94,
     numExtItems: { dieNum: 8, adjustment: 6 },
     pctToHaveMagicItems: 0.94,
-    numMagicItems: { dieNum: 4 }
+    numMagicItems: { dieNum: 4 },
   },
   {
     type: 14,
@@ -174,7 +174,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.95,
     numExtItems: { dieNum: 8, adjustment: 7 },
     pctToHaveMagicItems: 0.96,
-    numMagicItems: { dieNum: 4 }
+    numMagicItems: { dieNum: 4 },
   },
   {
     type: 15,
@@ -186,7 +186,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.96,
     numExtItems: { dieNum: 8, adjustment: 8 },
     pctToHaveMagicItems: 0.98,
-    numMagicItems: { dieNum: 4 }
+    numMagicItems: { dieNum: 4 },
   },
   {
     type: 16,
@@ -198,7 +198,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.97,
     numExtItems: { dieNum: 8, adjustment: 9 },
     pctToHaveMagicItems: 0.99,
-    numMagicItems: { dieNum: 4 }
+    numMagicItems: { dieNum: 4 },
   },
   {
     type: 17,
@@ -210,7 +210,7 @@ export const treasureTable = [
     pctToHaveExtItem: 0.98,
     numExtItems: { dieNum: 8, adjustment: 8 },
     pctToHaveMagicItems: 1,
-    numMagicItems: { dieNum: 6 }
+    numMagicItems: { dieNum: 6 },
   },
   {
     type: 18,
@@ -222,6 +222,6 @@ export const treasureTable = [
     pctToHaveExtItem: 0.99,
     numExtItems: { dieNum: 8, adjustment: 9 },
     pctToHaveMagicItems: 1,
-    numMagicItems: { dieNum: 6 }
-  }
+    numMagicItems: { dieNum: 6 },
+  },
 ];

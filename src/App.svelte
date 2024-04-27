@@ -46,7 +46,7 @@
 
         generatedTreasure.gems = [
           ...generatedTreasure.gems,
-          `${generatedGem} (${generatedGemValue}gp)`
+          `${generatedGem} (${generatedGemValue}gp)`,
         ];
       }
     }
@@ -73,51 +73,122 @@
     }
 
     const hasMagicItems = chance.bool({
-      likelihood: t.pctToHaveMagicItems * 100
+      likelihood: t.pctToHaveMagicItems * 100,
     });
     if (hasMagicItems) {
-      let numExtItems;
+      let numMagItems;
       if (typeof t.numMagicItems === "object") {
-        numExtItems = chance.natural({ min: 1, max: t.numMagicItems.dieNum });
+        numMagItems = chance.natural({ min: 1, max: t.numMagicItems.dieNum });
       } else {
-        numExtItems = chance.natural({ min: 1, max: t.numMagicItems });
+        numMagItems = chance.natural({ min: 1, max: t.numMagicItems });
       }
 
-      for (let i = 0; i < numExtItems; i++) {
-        let itemType = getMagicItem(
-          chance.natural({ min: 1, max: magicItemsIndex })
-        );
-
-        let itemXP;
-        if (t.maxXPValueForMagicItem) {
-          itemXP =
-            itemType.exp < t.maxXPValueForMagicItem
-              ? itemType.exp
-              : t.maxXPValueForMagicItem;
-        } else {
-          itemXP = itemType.exp;
-        }
-        const itemXPtext = typeof itemXP === "string" ? itemXP : `${itemXP}xp`;
-
+      for (let i = 0; i < numMagItems; i++) {
+        let itemType = getMagicItem(t.maxXPValueForMagicItem);
         let itemText = `${itemType.name} (`;
         if (itemType.type) {
           itemText += `${itemType.type}, `;
         }
 
         if (itemType.value && itemType.exp) {
-          itemText += `${itemType.value}gp, ${itemXPtext})`;
+          itemText += `${itemType.value}gp, ${itemType.exp}xp)`;
         } else {
           itemText += ")";
         }
 
         generatedTreasure.magicItems = [
           ...generatedTreasure.magicItems,
-          itemText
+          itemText,
         ];
       }
     }
   };
 </script>
+
+<div class="window">
+  <header class="title-bar">
+    <div class="title-bar-text">Castles & Crusades Treasure Generator</div>
+    <div class="title-bar-controls">
+      <button
+        aria-label="Help"
+        onclick="window.open('https://github.com/d3sandoval/cnc-treasure-generator','_blank');"
+      />
+      <button aria-label="Close" />
+    </div>
+  </header>
+  <main class="window-body">
+    <div class="top-row">
+      <div class="field-row treasure-type-select">
+        <label for="range21">Treasure Level*:</label>
+        <label for="range22">1</label>
+        <input
+          bind:value={selected}
+          id="range22"
+          type="range"
+          min="1"
+          max="18"
+        />
+        <label for="range23">18</label>
+      </div>
+      <button class="generate-button" on:click={calculateTreasure}>
+        Generate Treasure Level {selected}
+      </button>
+    </div>
+
+    {#if generatedOnce}
+      <div class="generated-treasure">
+        {#if generatedTreasure.gold.length === 0 && generatedTreasure.gems.length === 0 && generatedTreasure.extItems.length === 0 && generatedTreasure.magicItems.length === 0}
+          <p>The dice have spoken. No treasure was generated.</p>
+        {:else}
+          {#if generatedTreasure.gold.length > 0}
+            <h2 class="t-gold">Gold</h2>
+            {generatedTreasure.gold}
+          {/if}
+          {#if generatedTreasure.gems.length > 0}
+            <h2 class="t-gems">Gems</h2>
+            <ul>
+              {#each generatedTreasure.gems as gem}
+                <li>{gem}</li>
+              {/each}
+            </ul>
+          {/if}
+          {#if generatedTreasure.extItems.length > 0}
+            <h2 class="t-extItems">Extraordinary Items</h2>
+            <ul>
+              {#each generatedTreasure.extItems as extItem}
+                <li>{extItem}</li>
+              {/each}
+            </ul>
+          {/if}
+          {#if generatedTreasure.magicItems.length > 0}
+            <h2 class="t-magicItems">Magic Items</h2>
+            <ul>
+              {#each generatedTreasure.magicItems as magicItem}
+                <li>{magicItem}</li>
+              {/each}
+            </ul>
+          {/if}
+          <div class="footnotes-inner">
+            <small>
+              † Denotes that an item's
+              <em>type</em>
+              is the Castle Keeper’s choice. Value varies.
+            </small>
+            <small>
+              The value or experience for items
+              <em>with ranges</em>
+              can be found in "Monsters & Treasures"
+            </small>
+          </div>
+        {/if}
+      </div>
+    {/if}
+  </main>
+</div>
+<p class="footnotes-outer">
+  * To determine a treasure level, see the entry for a creature in "Monsters and
+  Treasure"
+</p>
 
 <style>
   .window {
@@ -223,87 +294,3 @@
     }
   }
 </style>
-
-<div class="window">
-  <header class="title-bar">
-    <div class="title-bar-text">Castles & Crusades Treasure Generator</div>
-    <div class="title-bar-controls">
-      <button
-        aria-label="Help"
-        onclick="window.open('https://github.com/d3sandoval/cnc-treasure-generator','_blank');" />
-      <button aria-label="Close" />
-    </div>
-  </header>
-  <main class="window-body">
-    <div class="top-row">
-      <div class="field-row treasure-type-select">
-        <label for="range21">Treasure Level*:</label>
-        <label for="range22">1</label>
-        <input
-          bind:value={selected}
-          id="range22"
-          type="range"
-          min="1"
-          max="18" />
-        <label for="range23">18</label>
-      </div>
-      <button class="generate-button" on:click={calculateTreasure}>
-        Generate Treasure Level {selected}
-      </button>
-    </div>
-
-    {#if generatedOnce}
-      <div class="generated-treasure">
-        {#if generatedTreasure.gold.length === 0 && generatedTreasure.gems.length === 0 && generatedTreasure.extItems.length === 0 && generatedTreasure.magicItems.length === 0}
-          <p>The dice have spoken. No treasure was generated.</p>
-        {:else}
-          {#if generatedTreasure.gold.length > 0}
-            <h2 class="t-gold">Gold</h2>
-            {generatedTreasure.gold}
-          {/if}
-          {#if generatedTreasure.gems.length > 0}
-            <h2 class="t-gems">Gems</h2>
-            <ul>
-              {#each generatedTreasure.gems as gem}
-                <li>{gem}</li>
-              {/each}
-            </ul>
-          {/if}
-          {#if generatedTreasure.extItems.length > 0}
-            <h2 class="t-extItems">Extraordinary Items</h2>
-            <ul>
-              {#each generatedTreasure.extItems as extItem}
-                <li>{extItem}</li>
-              {/each}
-            </ul>
-          {/if}
-          {#if generatedTreasure.magicItems.length > 0}
-            <h2 class="t-magicItems">Magic Items</h2>
-            <ul>
-              {#each generatedTreasure.magicItems as magicItem}
-                <li>{magicItem}</li>
-              {/each}
-            </ul>
-          {/if}
-          <div class="footnotes-inner">
-            <small>
-              † Denotes that an item's
-              <em>type</em>
-              is the Castle Keeper’s choice. Value varies.
-            </small>
-            <small>
-              The value or experience for items
-              <em>with ranges</em>
-              can be found in "Monsters & Treasures"
-            </small>
-          </div>
-        {/if}
-      </div>
-    {/if}
-  </main>
-
-</div>
-<p class="footnotes-outer">
-  * To determine a treasure level, see the entry for a creature in "Monsters and
-  Treasure"
-</p>
