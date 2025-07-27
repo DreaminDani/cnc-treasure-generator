@@ -25,7 +25,7 @@ export const getMagicItem = (maxXP) => {
       if (typeof midItem.options[0] === "string") {
         generatedItem =
           midItem.options[
-            chance.integer({ min: 0, max: midItem.options.length - 1 })
+          chance.integer({ min: 0, max: midItem.options.length - 1 })
           ];
       } else {
         generatedItem = getMinMaxItem(midItem.options).name;
@@ -56,6 +56,9 @@ export const getMagicItem = (maxXP) => {
 };
 
 const filterMagicItems = (maxXP) => {
+  if (!maxXP) {
+    maxXP = 100000; // default maxXP to a crazy high number if not provided
+  }
   let filteredList = [];
   for (const magicItemType of magicItemsTable) {
     if (magicItemType.bonuses) {
