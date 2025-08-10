@@ -48,7 +48,7 @@ export const extItemsTable = [
     max: 4,
     options: [ // 5% chance of getting any item
       {
-        name: "Arrow †",
+        name: "10 Arrows †",
         value: "1gp"
       },
       {
@@ -56,7 +56,7 @@ export const extItemsTable = [
         value: "100gp"
       },
       {
-        name: "Bolt †",
+        name: "10 Bolts †",
         value: "12sp"
       },
       {
@@ -160,7 +160,7 @@ export const extItemsTable = [
         value: getMaterialValue
       },
       {
-        name: "Buttons x2-4",
+        name: "Button x2-4",
         value: getMaterialValue
       },
       {
@@ -260,7 +260,7 @@ export const extItemsTable = [
         value: getMaterialValue
       },
       {
-        name: "Rune stones",
+        name: "Runestones",
         value: getMaterialValue
       },
       {
@@ -307,7 +307,7 @@ export const extItemsTable = [
   },
   {
     percentile: "13-16%",
-    name: "Hand Crafted item",
+    name: "Handcrafted item",
     min: 13,
     max: 16,
     options: [
@@ -332,7 +332,7 @@ export const extItemsTable = [
         value: { numDice: 2, dieNum: 10 }
       },
       {
-        name: "China place settings x1-12 - each",
+        name: "Fine china x1-12 - each",
         value: { numDice: 2, dieNum: 6 }
       },
       {
@@ -395,7 +395,7 @@ export const extItemsTable = [
   },
   {
     percentile: "17-20%",
-    name: "Antiquity",
+    name: "Antiques",
     min: 17,
     max: 20,
     options: [
@@ -612,7 +612,7 @@ const materialValueTable = [
   },
   {
     percentile: "68-70%",
-    name: "Jade silver or gold",
+    name: "Jade with silver or gold",
     min: 68,
     max: 70,
     value: 1250

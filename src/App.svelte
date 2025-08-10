@@ -1,12 +1,34 @@
 <script>
   import { Chance } from "chance";
   import { treasureTable } from "./tables/index.js";
-  import { gemTableIndex, getGem } from "./tables/gems.js";
-  import { extItemsIndex, getExtItem } from "./tables/extraordinaryItems.js";
-  import { magicItemsIndex, getMagicItem } from "./tables/magicItems.js";
+  import {
+    gemTableIndex as gemTableIndex4,
+    getGem as getGem4,
+  } from "./tables/gems.js";
+  import {
+    extItemsIndex as extItemsIndex4,
+    getExtItem as getExtItem4,
+  } from "./tables/extraordinaryItems.js";
+  import {
+    magicItemsIndex as magicItemsIndex4,
+    getMagicItem as getMagicItem4,
+  } from "./tables/magicItems.js";
+  import {
+    gemTableIndex as gemTableIndex6,
+    getGem as getGem6,
+  } from "./tables/v6_gems.js";
+  import {
+    extItemsIndex as extItemsIndex6,
+    getExtItem as getExtItem6,
+  } from "./tables/v6_extraordinaryItems.js";
+  import {
+    magicItemsIndex as magicItemsIndex6,
+    getMagicItem as getMagicItem6,
+  } from "./tables/v6_magicItems.js";
 
   const chance = new Chance();
 
+  let edition = "6th"; // default edition
   let selected = 1;
   let generatedTreasure = {};
   let generatedOnce = false;
@@ -15,6 +37,17 @@
     generatedOnce = true;
     // reset generated treasure
     generatedTreasure = { gold: [], gems: [], extItems: [], magicItems: [] };
+
+    // Select correct tables based on edition
+    const isSixth = edition === "6th";
+    // index.js is the same for both editions
+    // so just use 'treasureTable' for both
+    const gemTableIndex = isSixth ? gemTableIndex6 : gemTableIndex4;
+    const getGem = isSixth ? getGem6 : getGem4;
+    const extItemsIndex = isSixth ? extItemsIndex6 : extItemsIndex4;
+    const getExtItem = isSixth ? getExtItem6 : getExtItem4;
+    const magicItemsIndex = isSixth ? magicItemsIndex6 : magicItemsIndex4;
+    const getMagicItem = isSixth ? getMagicItem6 : getMagicItem4;
 
     // look at the treasure table for the selected treasure type
     const t = treasureTable[selected - 1];
@@ -117,6 +150,13 @@
     </div>
   </header>
   <main class="window-body">
+    <div class="edition-select">
+      <label for="treasure-type-select">Print Edition:</label>
+      <select id="treasure-type-select" bind:value={edition}>
+        <option value="4th">4th</option>
+        <option value="6th">6th</option>
+      </select>
+    </div>
     <div class="top-row">
       <div class="field-row treasure-type-select">
         <label for="range21">Treasure Level*:</label>
@@ -196,6 +236,10 @@
     margin: 0 auto;
   }
 
+  .edition-select {
+    width: 100%;
+    margin-bottom: 12px;
+  }
   .top-row {
     display: flex;
     justify-content: space-between;
