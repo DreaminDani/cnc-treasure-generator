@@ -314,6 +314,7 @@
   .footnotes-outer {
     max-width: 640px;
     margin: 8px auto;
+    padding-bottom: 100px;
   }
   .footnotes-inner {
     margin-top: 12px;
